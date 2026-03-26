@@ -5,7 +5,8 @@
 #include <functional>
 #include <vector>
 
-/* for all of these the initial vector indices are the one you should use (0-indexed)*/
+/* the merge function must be ASSOCIATIVE
+   the arguments are 0-indexed and the extremes [l, r] */
 
 namespace algo {
 
