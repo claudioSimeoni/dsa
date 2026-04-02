@@ -1,0 +1,3 @@
+I wanted to catalog some polished implementation of all the data structures and algorithms I know, starting from the easier ones day by day I will add all of them. Right now I'm not using templates both because I am more comfortable and because intellisense does not work properly with them, as the repo enlarges I will add them. 
+
+>I am using vectors as the underlying container when it would just get messier to use arrays.

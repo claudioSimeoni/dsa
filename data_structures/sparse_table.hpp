@@ -18,7 +18,7 @@ struct SparseTable {
         p2 = (int)std::floor(log2(n)) + 1;
         tab.resize(p2, std::vector<int>(n));
 
-        copy(v.begin(), v.end(), tab[0].begin());
+        tab[0] = v;
         for (int i = 1; i < p2; i++) {
             for (int j = 0; j <= n - (1 << i); j++) {
                 tab[i][j] = merge(tab[i - 1][j], tab[i - 1][j + (1 << (i - 1))]);

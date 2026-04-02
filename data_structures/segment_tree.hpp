@@ -20,7 +20,7 @@ struct SegmentTree {
         : merge(merge), neutr(neutr) {
         n = 1 << (int)ceil(log2(arr.size()));
         tr.resize(2 * n, neutr);
-        copy(arr.begin(), arr.end(), tr.begin() + n);
+        std::copy(arr.begin(), arr.end(), tr.begin() + n);
         for (size_t i = n - 1; i > 0; i--) tr[i] = merge(tr[2 * i], tr[2 * i + 1]);
     }
 
