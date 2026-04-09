@@ -9,7 +9,7 @@ namespace algo {
 struct DSU {
     std::vector<int> tr;
 
-    DSU(size_t n) { tr.resize(n, -1); }
+    DSU(int n) { tr.resize(n, -1); }
 
     int find(int k) {
         if (tr[k] < 0) return k;

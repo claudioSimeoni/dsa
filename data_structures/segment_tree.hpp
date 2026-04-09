@@ -12,7 +12,7 @@ namespace algo {
 
 struct SegmentTree {
     std::vector<int> tr;
-    size_t n;
+    int n;
     std::function<int(int, int)> merge;
     int neutr;
 
@@ -21,7 +21,7 @@ struct SegmentTree {
         n = 1 << (int)ceil(log2(arr.size()));
         tr.resize(2 * n, neutr);
         std::copy(arr.begin(), arr.end(), tr.begin() + n);
-        for (size_t i = n - 1; i > 0; i--) tr[i] = merge(tr[2 * i], tr[2 * i + 1]);
+        for (int i = n - 1; i > 0; i--) tr[i] = merge(tr[2 * i], tr[2 * i + 1]);
     }
 
     SegmentTree(int dim, const std::function<int(int, int)> merge, int neutr)
@@ -48,12 +48,11 @@ struct SegmentTree {
 
 struct RecursiveSegmentTree {
     std::vector<int> tr;
-    size_t n;
+    int n;
     std::function<int(int, int)> merge;
     int neutr;
 
-    RecursiveSegmentTree(const std::vector<int> &arr,
-                         const std::function<int(int, int)> merge,
+    RecursiveSegmentTree(const std::vector<int> &arr, const std::function<int(int, int)> merge,
                          int neutr)
         : n(arr.size()), merge(merge), neutr(neutr) {
         tr.resize(4 * n, neutr);
