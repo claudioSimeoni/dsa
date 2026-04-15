@@ -2,15 +2,13 @@
 
 #include <cassert>
 
-namespace algo {
-
 /* these are just basic versions, you can clearly add tons of function, note that
    singly linked list has more functions just not to add them everywhere  */
+namespace algo {
 
-struct LinkedList {
-
+template <class T> struct LinkedList {
     struct Node {
-        int val;
+        T val;
         Node *next;
     };
 
@@ -18,13 +16,15 @@ struct LinkedList {
 
     LinkedList() { head = nullptr; }
 
-    // the copy constructor is a must to avoid safety problems with contextual assignment and
-    // declaration
-    LinkedList(const LinkedList &l) { *this = l; }
+    // the copy constructor is a must to avoid safety problems with contextual assignment an declaration
+    LinkedList(const LinkedList &l) {
+        head = nullptr;
+        *this = l;
+    }
 
     ~LinkedList() { clear(); }
 
-    void push_front(int k) {
+    void push_front(T k) {
         Node *p = new Node;
         p->next = head;
         p->val = k;
@@ -38,7 +38,7 @@ struct LinkedList {
         delete p;
     }
 
-    void push_back(int k) {
+    void push_back(T k) {
         if (head == nullptr) {
             push_front(k);
             return;
@@ -78,10 +78,11 @@ struct LinkedList {
             q = p->next;
             p->next = head;
             head = p;
+            p = q;
         }
     }
 
-    Node *find(int k) {
+    Node *find(T k) {
         Node *p = head;
         while (p != nullptr && p->val != k) p = p->next;
         return p;
@@ -91,8 +92,7 @@ struct LinkedList {
         while (head != nullptr) pop_front();
     }
 
-    LinkedList &
-    operator=(const LinkedList &l) { // to avoid safety problems with contextual assignment
+    LinkedList &operator=(const LinkedList &l) { // to avoid safety problems with contextual assignment
         clear();
         Node *pl = l.head;
         while (pl != nullptr) {
@@ -104,10 +104,10 @@ struct LinkedList {
     }
 };
 
-struct DoublyLinkedList {
 
+template <class T> struct DoublyLinkedList {
     struct Node {
-        int val;
+        T val;
         Node *next;
         Node *prev;
     };
@@ -117,13 +117,15 @@ struct DoublyLinkedList {
 
     DoublyLinkedList() { head = tail = nullptr; }
 
-    // the copy constructor is a must to avoid safety problems with contextual assignment and
-    // declaration
-    DoublyLinkedList(const DoublyLinkedList &l) { *this = l; }
+    // the copy constructor is a must to avoid safety problems with contextual assignment and declaration
+    DoublyLinkedList(const DoublyLinkedList &l) {
+        head = tail = nullptr;
+        *this = l;
+    }
 
     ~DoublyLinkedList() { clear(); }
 
-    void push_front(int k) {
+    void push_front(T k) {
         Node *p = new Node;
         if (tail == nullptr) tail = p;
         else head->prev = p;
@@ -133,7 +135,7 @@ struct DoublyLinkedList {
         head = p;
     }
 
-    void push_back(int k) {
+    void push_back(T k) {
         Node *p = new Node;
         if (head == nullptr) head = p;
         else tail->next = p;
@@ -173,8 +175,7 @@ struct DoublyLinkedList {
         while (head != nullptr) pop_front();
     }
 
-    DoublyLinkedList &
-    operator=(const DoublyLinkedList &l) { // to avoid safety problems with contextual assignment
+    DoublyLinkedList &operator=(const DoublyLinkedList &l) { // to avoid safety problems with contextual assignment
         clear();
         Node *pl = l.head;
         while (pl != nullptr) {

@@ -1,14 +1,15 @@
 #pragma once
 
 #include <cstddef>
-#include <utility>
 #include <vector>
+#include <algorithm>
 
 namespace algo {
 
 constexpr int inf = 1e9;
 
 struct Sorting {
+
     static void bubble_sort(std::vector<int> &v) {
         const int n = v.size();
         for (int i = 0; i < n; i++) {
@@ -36,7 +37,7 @@ struct Sorting {
             int key = v[i];
             int j;
 
-            for (j = i - 1; j >= 0 && v[j] > key; j++) {
+            for (j = i - 1; j >= 0 && v[j] > key; j--) {
                 v[j + 1] = v[j];
             }
             v[j + 1] = key;
@@ -81,5 +82,6 @@ struct Sorting {
         }
     }
 };
+
 
 } // namespace algo

@@ -7,28 +7,27 @@
 namespace algo {
 
 /* the merge function must be ASSOCIATIVE and IDEMPOTENT
-   the arguments are 0-indexed and the extremes [l, r] */
-struct SparseTable {
-    std::vector<std::vector<int>> tab;
-    std::function<int(int, int)> merge;
+   the arguments are 0-indexed and the extremes [l, r) */
+template <class T, class F> struct SparseTable {
+    std::vector<std::vector<T>> tab;
     int n;
-    int p2;
+    int lg2;
 
-    SparseTable(std::vector<int> &v, std::function<int(int, int)> merge) : n(v.size()) {
-        p2 = (int)std::floor(log2(n)) + 1;
-        tab.resize(p2, std::vector<int>(n));
+    SparseTable(std::vector<T> &v) : n(v.size()){
+        lg2 = (int)log2(n) + 1;
+        tab.resize(lg2, std::vector<T>(n));
 
         tab[0] = v;
-        for (int i = 1; i < p2; i++) {
+        for (int i = 1; i < lg2; i++) {
             for (int j = 0; j <= n - (1 << i); j++) {
-                tab[i][j] = merge(tab[i - 1][j], tab[i - 1][j + (1 << (i - 1))]);
+                tab[i][j] = F()(tab[i - 1][j], tab[i - 1][j + (1 << (i - 1))]);
             }
         }
     }
 
-    int query(int l, int r) {
-        int mp2 = (int)std::floor(log2(r - l + 1));
-        return merge(tab[mp2][l], tab[mp2][r - (1 << mp2) + 1]);
+    T query(int l, int r) {
+        int mp2 = (int)log2(r - l);
+        return F()(tab[mp2][l], tab[mp2][r - (1 << mp2)]);
     }
 };
 
