@@ -7,7 +7,10 @@
 #include <algorithm>
 
 /* the merge function must be ASSOCIATIVE
-   the arguments are 0-indexed and the extremes [l, r) */
+   the upd function is by default an add 
+        (for the Lazy Segment Tree there is the constraint that you must be able to compute the upd for a node before calling apply)
+   the arguments are 0-indexed and the extremes [l, r) 
+   the F must be a struct with redefined () and a neutral attribute */
 namespace algo {
 
 template <class T, class F> struct SegmentTree {
